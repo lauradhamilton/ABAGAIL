@@ -32,9 +32,9 @@ import shared.FixedIterationTrainer;
  */
 public class FourPeaksTest {
     /** The n value */
-    private static final int N = 200;
+    private static final int N = 100;
     /** The t value */
-    private static final int T = N / 5;
+    private static final int T = N / 10;
     
     public static void main(String[] args) {
         int[] ranges = new int[N];
@@ -59,13 +59,13 @@ public class FourPeaksTest {
         fit.train();
         System.out.println("SA: " + ef.value(sa.getOptimal()));
         
-        StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 100, 10, gap);
-        fit = new FixedIterationTrainer(ga, 1000);
+        StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(500000, 400000, 1, gap);
+        fit = new FixedIterationTrainer(ga, 10000);
         fit.train();
         System.out.println("GA: " + ef.value(ga.getOptimal()));
         
-        MIMIC mimic = new MIMIC(200, 20, pop);
-        fit = new FixedIterationTrainer(mimic, 1000);
+        MIMIC mimic = new MIMIC(400, 20, pop);
+        fit = new FixedIterationTrainer(mimic, 10000);
         fit.train();
         System.out.println("MIMIC: " + ef.value(mimic.getOptimal()));
     }
