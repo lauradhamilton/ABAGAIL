@@ -27,7 +27,7 @@
 	</target>
 
 	<target name="javadoc" depends="prepare">
-		<javadoc sourcepath="${src.dir}" destdir="${jdocs.dir}" />
+		<javadoc sourcepath="${src.dir}" destdir="${jdocs.dir}" debug="true"/>
 	</target>
 
 	<target name = "all" depends = "compile,jar"/>
