@@ -16,58 +16,56 @@ import opt.SimulatedAnnealing;
 import opt.example.*;
 import opt.ga.CrossoverFunction;
 import opt.ga.DiscreteChangeOneMutation;
-import opt.ga.SingleCrossOver;
 import opt.ga.GenericGeneticAlgorithmProblem;
 import opt.ga.GeneticAlgorithmProblem;
 import opt.ga.MutationFunction;
 import opt.ga.StandardGeneticAlgorithm;
+import opt.ga.UniformCrossOver;
 import opt.prob.GenericProbabilisticOptimizationProblem;
 import opt.prob.MIMIC;
 import opt.prob.ProbabilisticOptimizationProblem;
 import shared.FixedIterationTrainer;
 
 /**
- * Copied from ContinuousPeaksTest
+ * 
+ * @author Andrew Guillory gtg008g@mail.gatech.edu
  * @version 1.0
  */
-public class FourPeaksTest {
+public class RastriginTest {
     /** The n value */
-    private static final int N = 100;
-    /** The t value */
-    private static final int T = N / 10;
+    private static final int N = 80;
     
     public static void main(String[] args) {
         int[] ranges = new int[N];
         Arrays.fill(ranges, 2);
-        EvaluationFunction ef = new FourPeaksEvaluationFunction(T);
+        EvaluationFunction ef = new RastriginEvaluationFunction();
         Distribution odd = new DiscreteUniformDistribution(ranges);
         NeighborFunction nf = new DiscreteChangeOneNeighbor(ranges);
         MutationFunction mf = new DiscreteChangeOneMutation(ranges);
-        CrossoverFunction cf = new SingleCrossOver();
+        CrossoverFunction cf = new UniformCrossOver();
         Distribution df = new DiscreteDependencyTree(.1, ranges); 
         HillClimbingProblem hcp = new GenericHillClimbingProblem(ef, odd, nf);
         GeneticAlgorithmProblem gap = new GenericGeneticAlgorithmProblem(ef, odd, mf, cf);
         ProbabilisticOptimizationProblem pop = new GenericProbabilisticOptimizationProblem(ef, odd, df);
         
         RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);      
-        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 200000);
+        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 200);
         fit.train();
-        System.out.println("RHC: " + ef.value(rhc.getOptimal()));
+        System.out.println("Randomized Hillclimbing: " + ef.value(rhc.getOptimal()));
         
-        SimulatedAnnealing sa = new SimulatedAnnealing(1E11, .95, hcp);
-        fit = new FixedIterationTrainer(sa, 200000);
+        SimulatedAnnealing sa = new SimulatedAnnealing(100, .95, hcp);
+        fit = new FixedIterationTrainer(sa, 200);
         fit.train();
-        System.out.println("SA: " + ef.value(sa.getOptimal()));
+        System.out.println("Simulated Annealing: " + ef.value(sa.getOptimal()));
         
-        StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200000, 100000, 1, gap);
-        fit = new FixedIterationTrainer(ga, 10000);
+        StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(20, 20, 0, gap);
+        fit = new FixedIterationTrainer(ga, 300);
         fit.train();
-        System.out.println("GA: " + ef.value(ga.getOptimal()));
+        System.out.println("Genetic Algorithm: " + ef.value(ga.getOptimal()));
         
-        MIMIC mimic = new MIMIC(400, 20, pop);
-        fit = new FixedIterationTrainer(mimic, 10000);
+        MIMIC mimic = new MIMIC(50, 10, pop);
+        fit = new FixedIterationTrainer(mimic, 100);
         fit.train();
         System.out.println("MIMIC: " + ef.value(mimic.getOptimal()));
     }
 }
-
