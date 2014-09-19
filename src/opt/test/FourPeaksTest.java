@@ -59,7 +59,7 @@ public class FourPeaksTest {
         fit.train();
         System.out.println("SA: " + ef.value(sa.getOptimal()));
         
-        StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200000, 100000, 1, gap);
+        StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(500, 100, 10, gap);
         fit = new FixedIterationTrainer(ga, 10000);
         fit.train();
         System.out.println("GA: " + ef.value(ga.getOptimal()));
