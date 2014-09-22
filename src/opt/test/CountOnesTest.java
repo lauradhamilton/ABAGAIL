@@ -51,7 +51,7 @@ public class CountOnesTest {
         ProbabilisticOptimizationProblem pop = new GenericProbabilisticOptimizationProblem(ef, odd, df);
 
         RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);      
-        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 200);
+        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 500);
         double rhc_start = System.nanoTime();
         fit.train();
         double rhc_end = System.nanoTime();
@@ -59,7 +59,7 @@ public class CountOnesTest {
         rhc_trainingTime /= Math.pow(10,9);
         
         SimulatedAnnealing sa = new SimulatedAnnealing(100, .95, hcp);
-        fit = new FixedIterationTrainer(sa, 200);
+        fit = new FixedIterationTrainer(sa, 500);
         double sa_start = System.nanoTime();
         fit.train();
         double sa_end = System.nanoTime();
@@ -67,7 +67,7 @@ public class CountOnesTest {
         sa_trainingTime /= Math.pow(10,9);
         
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(20, 20, 0, gap);
-        fit = new FixedIterationTrainer(ga, 300);
+        fit = new FixedIterationTrainer(ga, 500);
         double ga_start = System.nanoTime();
         fit.train();
         double ga_end = System.nanoTime();
@@ -75,7 +75,7 @@ public class CountOnesTest {
         ga_trainingTime /= Math.pow(10,9);
         
         MIMIC mimic = new MIMIC(50, 10, pop);
-        fit = new FixedIterationTrainer(mimic, 100);
+        fit = new FixedIterationTrainer(mimic, 500);
         double MIMIC_start = System.nanoTime();
         fit.train();
         double MIMIC_end = System.nanoTime();
