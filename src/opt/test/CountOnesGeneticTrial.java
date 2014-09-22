@@ -57,7 +57,7 @@ public class CountOnesGeneticTrial {
 
         /** Print out the values for each trial */
 
-        System.out.println(x + ";" + ef.value(ga.getOptimal()) + ";" + ";" +  ga_trainingTime);
+        System.out.println(x + ";" + ef.value(ga.getOptimal()) + ";" +  ga_trainingTime);
     }
     }
 }
