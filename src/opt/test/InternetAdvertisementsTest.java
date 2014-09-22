@@ -13,7 +13,7 @@ import java.text.*;
 
 /**
  * Implementation of randomized hill climbing, simulated annealing, and genetic algorithm to
- * find optimal weights to a neural network that is classifying abalone as having either fewer 
+ * predict whether an image on the internet is an advertisement or not
  * or more than 15 rings. 
  *
  * @author Hannah Lau (modified by Laura Hamilton)
@@ -22,7 +22,7 @@ import java.text.*;
 public class InternetAdvertisementsTest {
     private static Instance[] instances = initializeInstances();
 
-    private static int inputLayer = 1558, hiddenLayer = 50, outputLayer = 1, trainingIterations = 10;
+    private static int inputLayer = 1558, hiddenLayer = 500, outputLayer = 1, trainingIterations = 100;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
     
     private static ErrorMeasure measure = new SumOfSquaresError();
@@ -100,7 +100,7 @@ public class InternetAdvertisementsTest {
                 error += measure.value(output, example);
             }
 
-            System.out.println(df.format(error));
+            System.out.println((i+1) + " " + df.format(error));
         }
     }
 
