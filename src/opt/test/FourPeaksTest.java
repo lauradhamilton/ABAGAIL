@@ -50,24 +50,40 @@ public class FourPeaksTest {
         ProbabilisticOptimizationProblem pop = new GenericProbabilisticOptimizationProblem(ef, odd, df);
         
         RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);      
-        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 200000);
+        FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 10000);
+        double rhc_start = System.nanoTime();
         fit.train();
-        System.out.println("RHC: " + ef.value(rhc.getOptimal()));
+        double rhc_end = System.nanoTime();
+        double rhc_trainingTime = rhc_end - rhc_start;
+        rhc_trainingTime /= Math.pow(10,9);
+        System.out.println("RHC: " + ef.value(rhc.getOptimal())+ " (" + rhc_trainingTime + " seconds)");
         
         SimulatedAnnealing sa = new SimulatedAnnealing(1E11, .95, hcp);
-        fit = new FixedIterationTrainer(sa, 200000);
+        fit = new FixedIterationTrainer(sa, 10000);
+        double sa_start = System.nanoTime();
         fit.train();
-        System.out.println("SA: " + ef.value(sa.getOptimal()));
+        double sa_end = System.nanoTime();
+        double sa_trainingTime = sa_end - sa_start;
+        sa_trainingTime /= Math.pow(10,9);
+        System.out.println("SA: " + ef.value(sa.getOptimal()) + " (" + sa_trainingTime + " seconds)");
         
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(500, 100, 10, gap);
         fit = new FixedIterationTrainer(ga, 10000);
+        double ga_start = System.nanoTime();
         fit.train();
-        System.out.println("GA: " + ef.value(ga.getOptimal()));
+        double ga_end = System.nanoTime();
+        double ga_trainingTime = ga_end - ga_start;
+        ga_trainingTime /= Math.pow(10,9);
+        System.out.println("GA: " + ef.value(ga.getOptimal())+ " (" + ga_trainingTime + " seconds)");
         
-        MIMIC mimic = new MIMIC(400, 20, pop);
+        MIMIC mimic = new MIMIC(500, 20, pop);
         fit = new FixedIterationTrainer(mimic, 10000);
+        double MIMIC_start = System.nanoTime();
         fit.train();
-        System.out.println("MIMIC: " + ef.value(mimic.getOptimal()));
+        double MIMIC_end = System.nanoTime();
+        double MIMIC_trainingTime = MIMIC_end - MIMIC_start;
+        MIMIC_trainingTime /= Math.pow(10,9);
+        System.out.println("MIMIC: " + ef.value(mimic.getOptimal())+ " (" + MIMIC_trainingTime + " seconds)");
     }
 }
 
