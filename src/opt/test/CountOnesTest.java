@@ -36,7 +36,7 @@ public class CountOnesTest {
     private static final int N = 100;
     
     public static void main(String[] args) {
-         System.out.println("Trial;RHF;SAF;GAF;MIMICF;RHT;SAT;GAT;MIMICT");
+        System.out.println("Trial;RHF;SAF;GAF;MIMICF;RHT;SAT;GAT;MIMICT");
         for(int x=1; x<=100; x=x+1){
         int[] ranges = new int[N];
         Arrays.fill(ranges, 2);
